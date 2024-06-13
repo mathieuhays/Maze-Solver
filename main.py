@@ -4,34 +4,21 @@ from cell import Cell
 def main():
     win = Window(800, 600)
 
-    c = Cell(win)
-    c.draw(150, 100, 200, 150)
+    c1 = Cell(win)
+    c1.has_bottom_wall = False
+    c1.draw(100, 100, 200, 200)
 
-    c = Cell(win)
-    c.has_bottom_wall = False
-    c.draw(250, 100, 300, 150)
+    c2 = Cell(win)
+    c2.has_top_wall = False
+    c2.has_right_wall = False
+    c2.draw(100, 200, 200, 300)
 
-    c = Cell(win)
-    c.has_right_wall = False
-    c.draw(150, 200, 200, 250)
+    c3 = Cell(win)
+    c3.has_left_wall = False
+    c3.draw(200, 200, 300, 300)
 
-    c = Cell(win)
-    c.has_left_wall = False
-    c.draw(250, 200, 300, 250)
-
-    c = Cell(win)
-    c.has_top_wall = False
-    c.draw(350, 200, 400, 250)
-
-    c = Cell(win)
-    c.has_left_wall = False
-    c.has_right_wall = False
-    c.draw(200, 400, 300, 500)
-
-    c = Cell(win)
-    c.has_top_wall = False
-    c.has_bottom_wall = False
-    c.draw(500, 400, 600, 500)
+    c1.draw_move(c2)
+    c2.draw_move(c3, True)
 
     win.wait_for_close()
 
