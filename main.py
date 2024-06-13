@@ -1,9 +1,58 @@
-from graphics import Window, Line, Point
+from graphics import Window, Line, Point, Cell
 
 def main():
     win = Window(800, 600)
-    win.draw_line(Line(Point(10, 10), Point(500, 500)), "red")
-    win.draw_line(Line(Point(50, 90), Point(700, 200)), "black")
+
+    Cell(
+        win,
+        Point(150, 100),
+        Point(200, 150)
+    ).draw()
+
+    Cell(
+        win,
+        Point(250, 100),
+        Point(300, 150),
+        has_bottom_wall=False
+    ).draw()
+
+    Cell(
+        win,
+        Point(150, 200),
+        Point(200, 250),
+        has_right_wall=False
+    ).draw()
+
+    Cell(
+        win,
+        Point(250, 200),
+        Point(300, 250),
+        has_left_wall=False
+    ).draw()
+
+    Cell(
+        win,
+        Point(350, 200),
+        Point(400, 250),
+        has_top_wall=False
+    ).draw()
+
+    Cell(
+        win,
+        Point(200, 400),
+        Point(300, 500),
+        has_left_wall=False,
+        has_right_wall=False
+    ).draw()
+
+    Cell(
+        win,
+        Point(500, 400),
+        Point(600, 500),
+        has_top_wall=False,
+        has_bottom_wall=False
+    ).draw()
+
     win.wait_for_close()
 
 
