@@ -12,6 +12,7 @@ class Cell:
         self.has_right_wall = True
         self.has_top_wall = True
         self.has_bottom_wall = True
+        self.visited = False
 
     def draw(self, x1, y1, x2, y2):
         self._x1 = min(x1, x2)

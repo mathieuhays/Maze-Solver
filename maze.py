@@ -1,6 +1,13 @@
+import random
 import time
 from cell import Cell
 
+neighbor_directions = [
+    (0, -1),  # top
+    (1, 0),  # right
+    (0, 1),  # bottom
+    (-1, 0),  # left
+]
 
 class Maze:
     def __init__(
@@ -12,6 +19,7 @@ class Maze:
         cell_size_x,
         cell_size_y,
         win=None,
+        seed=None
     ):
         self._x1 = x1
         self._y1 = y1
@@ -21,8 +29,14 @@ class Maze:
         self._cell_size_y = cell_size_y
         self._win = win
         self._cells = []
+
+        if seed is not None:
+            random.seed(seed)
+
         self._create_cells()
         self._break_entrance_and_exit()
+        self._break_walls_r(0, 0)
+
 
     def _create_cells(self):
         for i in range(self._num_cols):
@@ -53,3 +67,46 @@ class Maze:
         self._cells[exit_x][exit_y].has_bottom_wall = False
         self._draw_cell(0, 0)
         self._draw_cell(exit_x, exit_y)
+
+    def _break_walls_r(self, i, j):
+        current_cell = self._cells[i][j]
+        current_cell.visited = True
+
+        while True:
+            possible_directions = []
+
+            for dx, dy in neighbor_directions:
+                cx = i + dx
+                cy = j + dy
+
+                if cx < 0 or cx >= self._num_cols:
+                    continue
+                if cy < 0 or cy >= self._num_rows:
+                    continue
+                if self._cells[cx][cy].visited:
+                    continue
+
+                possible_directions.append((dx, dy))
+
+            if len(possible_directions) == 0:
+                self._draw_cell(i, j)
+                return
+
+            chosen = random.randrange(len(possible_directions))
+            direction = possible_directions[chosen]
+            next_cell = self._cells[i + direction[0]][j + direction[1]]
+
+            if direction[0] == -1:
+                current_cell.has_left_wall = False
+                next_cell.has_right_wall = False
+            elif direction[0] == 1:
+                current_cell.has_right_wall = False
+                next_cell.has_left_wall = False
+            elif direction[1] == -1:
+                current_cell.has_top_wall = False
+                next_cell.has_bottom_wall = False
+            elif direction[1] == 1:
+                current_cell.has_bottom_wall = False
+                next_cell.has_top_wall = False
+
+            self._break_walls_r(i + direction[0], j + direction[1])
