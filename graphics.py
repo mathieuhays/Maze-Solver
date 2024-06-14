@@ -9,6 +9,7 @@ class Window:
         self.__canvas = Canvas(self.__root, bg="white", height=height, width=width)
         self.__canvas.pack(fill=BOTH, expand=1)
         self.__running = False
+        self.__request_closing = False
 
     def redraw(self):
         self.__root.update_idletasks()
@@ -19,8 +20,12 @@ class Window:
         while self.__running:
             self.redraw()
 
+    def should_stop(self):
+        return self.__request_closing
+
     def close(self):
         self.__running = False
+        self.__request_closing = True
 
     def draw_line(self, line, fill_color="black", width=2):
         line.draw(self.__canvas, fill_color, width)

@@ -131,6 +131,9 @@ class Maze:
         current = self._cells[i][j]
         current.visited = True
 
+        if self._win.should_stop():
+            return True
+
         if i == 0 and j == 0:
             current.draw_start()
             self._animate()
