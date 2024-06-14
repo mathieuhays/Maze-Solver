@@ -2,7 +2,7 @@ from graphics import Line, Point
 
 
 class Cell:
-    def __init__(self, window):
+    def __init__(self, window=None):
         self._win = window
         self._x1 = None
         self._y1 = None
@@ -18,6 +18,10 @@ class Cell:
         self._x2 = max(x1, x2)
         self._y1 = min(y1, y2)
         self._y2 = max(y1, y2)
+
+        if self._win is None:
+            return
+
         if self.has_left_wall:
             self._win.draw_line(Line(
                 Point(self._x1, self._y1),
