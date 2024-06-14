@@ -63,10 +63,20 @@ class Cell:
             self._y1 + ((self._y2 - self._y1)/2)
         )
 
+    def draw_start(self):
+        start = self.get_center_point()
+        start.y = self._y1
+        self._win.draw_line(Line(start, self.get_center_point()), "red", 5)
+
+    def draw_end(self):
+        end = self.get_center_point()
+        end.y = self._y2
+        self._win.draw_line(Line(self.get_center_point(), end), "red", 5)
+
     def draw_move(self, to_cell, undo=False):
         local_point = self.get_center_point()
         to_point = to_cell.get_center_point()
         fill_color = "red"
         if undo:
             fill_color = "gray"
-        self._win.draw_line(Line(local_point, to_point), fill_color)
+        self._win.draw_line(Line(local_point, to_point), fill_color, 5)
