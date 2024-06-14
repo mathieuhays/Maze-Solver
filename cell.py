@@ -78,5 +78,5 @@ class Cell:
         to_point = to_cell.get_center_point()
         fill_color = "red"
         if undo:
-            fill_color = "gray"
+            fill_color = "#aaaaaa"
         self._win.draw_line(Line(local_point, to_point), fill_color, 5)
